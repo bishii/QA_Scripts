@@ -29,3 +29,6 @@ apt install npm
 npm init
 npm install webdriverio
 
+cp ../QA_Scripts/js/webdriverio-learning/headless_chrome_webdriverio_example.js .
+
+runuser -l ubuntu -c 'cd automation; nodejs headless_chrome_webdriverio_example.js'
