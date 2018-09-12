@@ -13,14 +13,14 @@ def worker_handler(event, context):
     #Download private key file from secure S3 bucket
     #s3_client.download_file('bi-s3-key-bucket','aws-eb', '/tmp/aws-eb')
 
-    k = paramiko.RSAKey.from_private_key_file("/tmp/aws-eb","08_Feed_1974")
+    k = paramiko.RSAKey.from_private_key_file("/tmp/aws-eb","")
     c = paramiko.SSHClient()
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     #host=event['IP']
     host = "34.220.130.66"
     print("%s Connecting to %s" % (getDate(),host))
-    c.connect( look_for_keys=False, hostname = host, password="08_Feed_1974", username = "ubuntu", pkey = k )
+    c.connect( look_for_keys=False, hostname = host, password="", username = "ubuntu", pkey = k )
     print("%s Connected to %s" % (getDate(),host))
 
     commands = [
