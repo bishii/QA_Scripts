@@ -18,7 +18,7 @@ def worker_handler(event, context):
     c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     #host=event['IP']
-    host = "34.220.130.66"
+    host = ""
     print("%s Connecting to %s" % (getDate(),host))
     c.connect( look_for_keys=False, hostname = host, password="", username = "ubuntu", pkey = k )
     print("%s Connected to %s" % (getDate(),host))
