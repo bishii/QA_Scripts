@@ -31,6 +31,7 @@ sudo apt install git
 sudo mkdir git
 cd git
 git clone https://github.com/bishii/QA_Scripts.git
+cd ..
 
 apt install npm
 npm init
@@ -47,7 +48,7 @@ sudo apt install zip
 
 ###TODO: Figure out how to set the .aws/credentials (username and pwd)
 
-cp git/QA_Scripts/js/webdriverio-learning/parentScript.js automation/
+cp git/QA_Scripts/js/webdriverio-learning/parentScript.sh automation/
 cp git/QA_Scripts/js/webdriverio-learning/wdio.conf.js automation/
 
 #cp ../QA_Scripts/js/webdriverio-learning/headless_chrome_webdriverio_example.js .
