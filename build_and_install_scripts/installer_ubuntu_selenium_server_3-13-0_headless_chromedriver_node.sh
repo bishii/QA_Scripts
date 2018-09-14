@@ -24,11 +24,31 @@ runuser -l ubuntu -c 'java -Dwebdriver.chrome.driver=/usr/bin/chromedriver -jar 
 
 
 mkdir automation
+sudo chown ubuntu automation/
 cd automation
+
+sudo apt install git
+sudo mkdir git
+cd git
+git clone https://github.com/bishii/QA_Scripts.git
+
 apt install npm
 npm init
 npm install webdriverio
 
-cp ../QA_Scripts/js/webdriverio-learning/headless_chrome_webdriverio_example.js .
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+export PATH=$PATH:/home/ubuntu/automation/node_modules/.bin/
 
-runuser -l ubuntu -c 'cd automation; nodejs headless_chrome_webdriverio_example.js'
+sudo npm install wdio-mochawesome-reporter
+sudo npm install wdio-mocha-framework
+sudo npm install mochawesome-report-generator
+sudo apt install awscli
+sudo apt install zip
+
+###TODO: Figure out how to set the .aws/credentials (username and pwd)
+
+cp git/QA_Scripts/js/webdriverio-learning/parentScript.js automation/
+cp git/QA_Scripts/js/webdriverio-learning/wdio.conf.js automation/
+
+#cp ../QA_Scripts/js/webdriverio-learning/headless_chrome_webdriverio_example.js .
+#runuser -l ubuntu -c 'cd automation; nodejs headless_chrome_webdriverio_example.js'
