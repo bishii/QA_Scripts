@@ -34,6 +34,17 @@ class Dot:
 	def get_coords(self):
 		return (self.CurrentX, self.CurrentY)
 
+	def get_interval_time_false(self):
+		return (self.IntervalTimeFalse)
+
+	def get_interval_time_true(self):
+		return (self.IntervalTimeTrue)
+
+
+	def move_to(self,coordsTuple):
+		self.CurrentX = coordsTuple[0]
+		self.CurrentY = coordsTuple[1]
+
 	def get_current_state(self):
 		"""
 			if current state is TRUE:
