@@ -1,7 +1,7 @@
 import time
 
 class Dot: 
-	def __init__(self, settings=("defaultDot",3,10)):
+	def __init__(self, settings=("defaultDot",3,10,(0,0))):
 		"""
 
 		Constructor Inputs:
@@ -11,16 +11,28 @@ class Dot:
 				3) TRUE interval (seconds)
 
 		"""
-		creationTime = time.time()
+		self.creationTime = time.time()
 		self.dotName = settings[0]
 		self.IntervalTimeTrue = settings[2]
 		self.IntervalTimeFalse = settings[1]
 		self.IntervalStartTime = time.time()
 		self.CurrentState = False
+		self.CurrentX = settings[3][0]
+		self.CurrentY = settings[3][1]
+		self.CurrentState = False
 
 
 	def set_interval_start_time(self):
 		self.IntervalStartTime = time.time()
+
+	def set_x(self,xPos):
+		self.CurrentX = xPos
+
+	def set_y(self,yPos):
+		self.CurrentY = yPos
+
+	def get_coords(self):
+		return (self.CurrentX, self.CurrentY)
 
 	def get_current_state(self):
 		"""
