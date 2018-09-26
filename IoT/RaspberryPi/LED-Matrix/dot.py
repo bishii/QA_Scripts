@@ -34,6 +34,9 @@ class Dot:
 	def get_coords(self):
 		return (self.CurrentX, self.CurrentY)
 
+	def get_obj_desc(self):
+		return (self.dotName)
+
 	def get_interval_time_false(self):
 		return (self.IntervalTimeFalse)
 

@@ -21,63 +21,33 @@ dotsSourceOrig = []
 #	dotsPointers.append(dotS)
 
 numDots = int(input("How many Dots ?"))
+OnRangeLow = int(input("ON time min ?"))
+OnRangeHigh = int(input("ON time max?"))
+OffRangeLow = int(input("OFF time min ?"))
+OffRangeHigh = int(input("OFF time max?"))
 
 row = -1
 
 for co in range(numDots):
-	count = co%32 
+	count = co%32
 	if count == 0: row +=1
-	l1 = randrange(1,500,1)*0.01
-	l1 = 0.10
-	l2 = randrange(1,500,1)*0.01
-	theDot = Dot(("dot-instance-%s" % count,l1,l2, (count,row)))
+	l1 = randrange(OffRangeLow,OffRangeHigh,1) * 0.01
+	l2 = randrange(OnRangeLow,OnRangeHigh,1) * 0.01
+	theDot = Dot(("dot-instance-%s" % co,l1,l2, (count,row)))
 	dotsSource.append(theDot)
 	dotsSourceOrig.append(theDot)
-
 dotsPointers = []
 
-
-
-transform = False
-newX = 0
-newY = 6
-sortIntervalCounter = 0
-for duration in range(500):
-	sleep(0.2)
-	whiteDots = []
-	blackDots = []
-	with canvas(device) as draw:
-		for theDot in dotsSourceOrig:
-			if theDot.get_current_state() == True:
-				whiteDots.append(theDot.get_coords())
-			else:
-				blackDots.append(theDot.get_coords())	
-		draw.point(blackDots,fill="black") 
-		draw.point(whiteDots,fill="white") 
-
-	LinearSortList = []
-
-	if duration == 5: 
-		transform = True
-
-	if transform == True and len(dotsSource) > 0:
-		sortIntervalCounter +=1
-		if sortIntervalCounter > 5:
-			sortIntervalCounter = 0
-	
-			currentSmallestTrueValue = dotsSource[0].get_interval_time_true()
-		
-			for d in dotsSource:	
-				curr = d.get_interval_time_true()
-				if curr < currentSmallestTrueValue: 
-					currentSmallestTrueValue = curr 
-
-			for d in dotsSource:
-				if d.get_interval_time_true() == currentSmallestTrueValue:
-					d.move_to((newX, newY))
-					dotsSource.remove(d)
-					currentSmallestTrueValue=1000
-					break
-
-			newX += 1
-			if newX == 32: newY +=1
+#for duration in range(10000):
+while True:
+        sleep(0.01)
+        whiteDots = []
+        blackDots = []
+        with canvas(device) as draw:
+                for theDot in dotsSourceOrig:
+                        if theDot.get_current_state() == True:
+                                whiteDots.append(theDot.get_coords())
+                        else:
+                                blackDots.append(theDot.get_coords())
+                draw.point(blackDots,fill="black")
+                draw.point(whiteDots,fill="white")
