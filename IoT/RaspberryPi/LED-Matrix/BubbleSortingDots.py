@@ -7,13 +7,14 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 from dot import Dot
 from random import randrange
+import random
 
 
 FALSE_MIN = 50
 FALSE_MAX = 51
 
 TRUE_MIN = 1 
-TRUE_MAX = 10 
+TRUE_MAX = 2 
 
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, height=8, width=32, block_orientation=-90, rotate=2)
@@ -21,7 +22,7 @@ device.contrast(0)
 
 def bubble_once(theList):
     for x in range(len(theList) - 1):
-	sleep(0.0001)
+	#sleep(0.0001)
 	render_dots()
 	#print "List length: %s. Currently at: %s - %s" % (len(theList), theList[x].IntervalTimeTrue, \
 	#	theList[x+1].IntervalTimeTrue)
@@ -74,7 +75,8 @@ for co in range(numDots):
 	count = co%32 
 	if count == 0: row +=1
 	l1 = randrange(FALSE_MIN,FALSE_MAX,1)*0.01
-	l2 = randrange(TRUE_MIN,TRUE_MAX,1)*0.10
+	#l2 = randrange(TRUE_MIN,TRUE_MAX,1)*0.10
+	l2 = random.choice([0.10, 0.20, 0.30, 0.40, 0.50])
 	theDot = Dot(("dot-instance-%s" % count,l1,l2, (count,row)))
 	dotsSource.append(theDot)
 	dotsSourceOrig.append(theDot)
