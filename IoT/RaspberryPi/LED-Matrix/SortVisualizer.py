@@ -24,7 +24,8 @@ device.contrast(0)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-dotsVariants = [32,64,100,96,128,160,256]
+#dotsVariants = [32,64,100,96,128,160,256]
+dotsVariants = [128]
 
 def check_button_events(listOfButtonsGPIOsToheck):
 	resp = []
@@ -78,13 +79,53 @@ def bubble_all(theList):
     except ButtonPressEvent:
 	print "STOPPED in Bubble ALL!!!!"
 	raise
-	
 
-def render_dots():
+def run_selection_sort():
+    print 'in run selection sort! dotsSource is currently: %s' % dotsSource
+
+    newX = 0
+    newY = 4
+    sortIntervalCounter = 0
+
+    while len(dotsSource) > 0:
+
+	    sortIntervalCounter +=1
+	    if sortIntervalCounter > 2:
+		sortIntervalCounter = 0
+
+		#Trying to print here:
+		print "Right before assigning smallest..."
+		print dotsSource
+		currentSmallestTrueValue = dotsSource[0].get_interval_time_true()
+		print "Right after assigning smallest..."
+
+		for d in dotsSource:
+		    curr = d.get_interval_time_true()
+		    if curr < currentSmallestTrueValue:
+			currentSmallestTrueValue = curr
+
+		for d in dotsSource:
+			if d.get_interval_time_true() == currentSmallestTrueValue:
+			    
+			    d.move_to((newX, newY))
+
+			    if newX == 31:
+				 newX = 0
+				 newY += 1
+			    else:
+				 newX += 1
+
+			    dotsSource.remove(d)
+			    currentSmallestTrueValue=1000
+			    render_dots(dotsSourceOrig)
+			    break
+
+def render_dots(theListToRender):
+	sleep(0.1)
         whiteDots = []
         blackDots = []
         with canvas(device) as draw:
-                for theDot in dotsSource:
+                for theDot in theListToRender:
                         if theDot.get_current_state() == True:
                                 whiteDots.append(theDot.get_coords())
                         else:
@@ -101,6 +142,7 @@ def create_dot_instances(numDots):
 	dSO = []
 
 	row = -1
+	count = 00
 	for co in range(numDots):
 		count = co%32 
 		if count == 0: row +=1
@@ -114,19 +156,15 @@ def create_dot_instances(numDots):
 
 
 while True:
-	try:
-		#numDots = int(input("How many Dots ?"))
-		numDots = random.choice(dotsVariants)
-		dotsSource, dotsSourceOrig = create_dot_instances(numDots)
+	numDots = random.choice(dotsVariants)
+	dotsSource, dotsSourceOrig = create_dot_instances(numDots)
 
-		for duration in range(5000):
+	for duration in range(5000):
 
-			render_dots()
-			y = check_button_events([2])
-			if y == False:
-				raise ButtonPressEvent("Button was pressed, and bubbled up!")
+		render_dots(dotsSourceOrig)
+		y = check_button_events([2])
+		if y == False:
+			raise ButtonPressEvent("Button was pressed, and bubbled up!")
 
-			if duration == 3000:
-				bubble_all(dotsSource)	
-	except ButtonPressEvent:
-		print "restarting because of button press!"	
+		if duration == 20:
+			run_selection_sort()
