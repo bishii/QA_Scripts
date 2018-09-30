@@ -25,7 +25,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #dotsVariants = [32,64,100,96,128,160,256]
-dotsVariants = [128]
+dotsVariants = [32,64,96,128]
 
 def check_button_events(listOfButtonsGPIOsToheck):
 	resp = []
@@ -68,20 +68,16 @@ def bubble_once(theList):
 	print "Fyi: User pressed button."
 	raise
 
-    #print [int(o.IntervalTimeTrue * 100) for o in theList]
 
 def bubble_all(theList):
 
     try:
         for x in range(len(theList)):
 	    bubble_once(theList)
-	    print x
     except ButtonPressEvent:
-	print "STOPPED in Bubble ALL!!!!"
 	raise
 
 def run_selection_sort():
-    print 'in run selection sort! dotsSource is currently: %s' % dotsSource
 
     newX = 0
     newY = 4
@@ -93,11 +89,7 @@ def run_selection_sort():
 	    if sortIntervalCounter > 2:
 		sortIntervalCounter = 0
 
-		#Trying to print here:
-		print "Right before assigning smallest..."
-		print dotsSource
 		currentSmallestTrueValue = dotsSource[0].get_interval_time_true()
-		print "Right after assigning smallest..."
 
 		for d in dotsSource:
 		    curr = d.get_interval_time_true()
@@ -155,11 +147,12 @@ def create_dot_instances(numDots):
 	return (dS, dSO)
 
 
-while True:
+while True: 
+
 	numDots = random.choice(dotsVariants)
 	dotsSource, dotsSourceOrig = create_dot_instances(numDots)
 
-	for duration in range(5000):
+	for duration in range(40):
 
 		render_dots(dotsSourceOrig)
 		y = check_button_events([2])
@@ -168,3 +161,4 @@ while True:
 
 		if duration == 20:
 			run_selection_sort()
+
