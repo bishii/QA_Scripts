@@ -25,9 +25,15 @@ def bubble_once(theList):
 
 def bubble_all(theList, dotMatrix):
 	numSwaps = 0
+	startTime = time.time()
 	for x in range(len(theList)):
-            res = bubble_once(theList)
-            numSwaps += res
-            sleep(0.05)
-            dotMatrix.render_dots(theList)
-	return (time.time(), 'BUBBLE_SORT', time.time(), numSwaps, len(theList))
+        res = bubble_once(theList)
+        numSwaps += res
+        sleep(0.05)
+        dotMatrix.render_dots(theList)
+
+	endTime = time.time()
+
+    SECONDS_TO_COMPLETE = endTime - startTime
+    TIME_FINISHED = time.time()
+	return (TIME_FINISHED, 'BUBBLE_SORT', SECONDS_TO_COMPLETE, numSwaps, len(theList))
