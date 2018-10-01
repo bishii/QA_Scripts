@@ -56,13 +56,13 @@ class DotMatrixModule:
 		row = -1
 		count = 00
 
-		NUM_ROWS=numDots / 32
-		HORIZONTAL_SPLITTING=random.choice([32,16,8,4])
+		NUM_ROWS=int(numDots / 32)
+		HORIZONTAL_SPLITTING=int(random.choice([32,16,8,4]))
 
 		count = 0
 		splitCount = 0
 		for a in range(NUM_ROWS):
-			for b in range(32 / HORIZONTAL_SPLITTING):
+			for b in range(int(32 / HORIZONTAL_SPLITTING)):
 				splitCount += 1
 				for c in range(HORIZONTAL_SPLITTING):
 					o.append(0.10 * splitCount)

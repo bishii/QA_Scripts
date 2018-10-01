@@ -1,8 +1,13 @@
+import time
+
+
 def run_selection_sort(dotsSource, dotsSourceOrig, dotMatrix):
 
     newX = 0
     newY = 4
     sortIntervalCounter = 0
+
+    totalDots = len(dotsSource)
 
     while len(dotsSource) > 0:
 
@@ -31,4 +36,4 @@ def run_selection_sort(dotsSource, dotsSourceOrig, dotMatrix):
                             dotsSource.remove(d)
                             currentSmallestTrueValue=1000
                             dotMatrix.render_dots(dotsSourceOrig)
-                            break
+    return ( time.time(), 'SELECTION_SORT', time.time(), totalDots, totalDots)
