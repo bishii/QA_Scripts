@@ -43,14 +43,14 @@ while True:
 	numDots = random.choice(dotsVariants)
 	dotsSource, dotsSourceOrig = dotMatrix.create_dot_instances(numDots)
 
-	for duration in range(50):
+	for duration in range(11):
 
 		dotMatrix.render_dots(dotsSourceOrig)
                 #y = dotMatrix.check_button_events([GPIO_NUM_WHITE_BUTTON])
                 #if y == False:
                 #        raise ButtonPressEvent("Button was pressed, and bubbled up!")
 
-		if duration == 25:
+		if duration == 5:
 			LOG_DATE_TIME, MODULE_NAME, COMPLETION_TIME, NUMBER_OF_SWAPS, TOTAL_DOTS = \
 				SelectionSort.run_selection_sort(dotsSource, dotsSourceOrig, dotMatrix)
 			theResponse = {'NUMBER_OF_ELEMENTS': int(TOTAL_DOTS), 'LOG_DATE_TIME': int(LOG_DATE_TIME), \
@@ -58,9 +58,14 @@ while True:
 			
 			dbTable.put_item(Item=theResponse)
 
-		if duration == 5000000:
+		if duration == 10:
 			numDots = random.choice(dotsVariants)
 			dotsSource, dotsSourceOrig = dotMatrix.create_dot_instances(numDots)
 
-			print(db.put_item(Item = theResponse))
-			BubbleSort.bubble_all(dotsSource, dotMatrix)
+			LOG_DATE_TIME, MODULE_NAME, COMPLETION_TIME, NUMBER_OF_SWAPS, TOTAL_DOTS = \
+				BubbleSort.bubble_all(dotsSource, dotMatrix)
+
+			theResponse = {'NUMBER_OF_ELEMENTS': int(TOTAL_DOTS), 'LOG_DATE_TIME': int(LOG_DATE_TIME), \
+				'NUMBER_OF_SWAPS': int(NUMBER_OF_SWAPS), 'MODULE_NAME': 'BUBBLE_SORT', 'COMPLETION_TIME': int(COMPLETION_TIME)}
+
+			dbTable.put_item(Item = theResponse)
